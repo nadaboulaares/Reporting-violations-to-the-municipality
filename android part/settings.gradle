@@ -1,0 +1,2 @@
+
+include ':app', ':mylibrary', ':gson-2.8.1'
