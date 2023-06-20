@@ -1,0 +1,146 @@
+
+
+
+
+  <div class="contenu ">
+    <div class="sidebar" data-color="purple" data-background-color="white" >
+     
+          
+        <div class="sidebar-wrapper">
+          
+                <div class="logo">
+                        <img src="favicon.ico" id="ico" />
+                    <a href="#" >
+                   
+                    </a>
+                  </div>
+        <ul class="nav">
+         
+               
+          <li class="nav-item   ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">dashboard</i>
+              <p>Statistiques</p>
+            </a>
+          </li>
+        
+          <li class="nav-item active  ">
+                <a class="nav-link" href="reclamation">
+                  <i class="material-icons">content_paste</i>
+                  <p> Réclamations réçues</p>
+                </a>
+              </li>
+              <li class="nav-item  ">
+                <a class="nav-link" href="reclamationvalide">
+                  <i class="material-icons">assignment_turned_in</i>
+                  <p>  Réclamations résolus</p>
+                </a>
+              </li>
+              <li class="nav-item  ">
+                <a class="nav-link" href="reclamationrejetee">
+                  <i class="material-icons">cancel</i>
+                  <p>Réclamtions rejetées</p>
+                </a>
+              </li>
+         
+              <li class="nav-item ">
+                <a class="nav-link" href="map">
+                  <i class="material-icons">location_ons</i>
+                  <p>Maps</p>
+                </a>
+              </li>      
+
+              <dialog *ngIf="showMyMessage">supprimé avec succes!!</dialog>
+          <br><br>
+          <li class="nav-item ">
+                <input type="button" (click)="onLogout()" value="Logout" id="logout"/>
+            
+</li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+       
+     
+    </nav>
+      <!-- End Navbar -->
+      <div class="content" id="con">
+          
+        
+
+       
+          <table class="table-full">
+            <thead class=" text-primary">
+              <tr>
+              
+                <th>Email</th>
+                <th>Commentaires</th>
+                <th>Anomalie</th>
+                <th>position</th>
+            <th>images</th>
+                <th>date</th>
+                <th>etat</th>
+               
+                <th>Valider ou Rejeter</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+  
+            <tr   
+           
+           *ngFor="let reclamation  of  reclamationService.reclamations    "
+          
+            >
+            <ng-container *ngIf="reclamation.etat=='en attente' ">
+          
+                <td>{{reclamation.mEmail}}</td> 
+              <td>{{reclamation.commentaires}}</td>
+              <td>{{reclamation.anomalie}}</td>
+              <td>     <agm-map  [latitude]="+reclamation.positionLatitude" [longitude] ="+reclamation.positionLongitude" (mapClick)="onChoseLocation($event)">
+            
+                <agm-marker  
+                [latitude]="+reclamation.positionLatitude" 
+                [longitude] ="+reclamation.positionLongitude"
+              ></agm-marker>
+              </agm-map>  
+              </td>
+            
+              <td ><img src="{{reclamation.imageUrl}}"></td>
+             
+              <td >{{reclamation.date}}</td>
+              <td class="etat">{{reclamation.etat}}</td>
+           
+              <td  >
+                  <a class="action-btn" (click)="onEdit(reclamation._id,reclamation)">
+                    
+                    <i class="material-icons">check_circle</i><p>valider</p>
+                  </a>
+                  <a class="action-btn" (click)="Edit(reclamation._id,reclamation )">
+                    
+                    <i class="material-icons">cancel</i><p>rejeter</p>
+                    </a>
+                  
+                </td>
+              <td><a class="action-btn" (click)="onDelete(reclamation._id,reclamationForm) ">
+                  <i class="material-icons">delete</i><p>supprimer</p>
+                 
+                </a></td></ng-container>
+            </tr>
+          </table>
+     </div>
+    
+    </div>
+  </div>
+  
+  
+ 
+ 
+
+             
+       
+       
+     
+     
+
